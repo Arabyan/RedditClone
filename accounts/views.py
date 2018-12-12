@@ -15,9 +15,9 @@ def signup(request):
                 login(request, user)
                 return render(request, 'accounts/signup.html')
         else:
-            return render(request, 'accounts/signup.html', {'error':'passwords didn\'t match'})
+            return render(request, 'accounts/signup.html')
     else:
-        return render(request, 'accounts/signup.html')
+        return render(request, 'accounts/signup.html', {'error':'Passwords didn\'t match'})
 
 
 def loginview(request):
