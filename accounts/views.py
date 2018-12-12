@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 # Create your views here.
@@ -13,7 +13,9 @@ def signup(request):
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
                 login(request, user)
-                return render(request, 'accounts/signup.html')
+                if request.POST["next"] is not None:
+
+                    return render(request, 'accounts/signup.html')
         else:
             return render(request, 'accounts/signup.html')
     else:
@@ -25,6 +27,8 @@ def loginview(request):
         user = authenticate( username=request.POST['username'], password=request.POST['username'])
         if user is not None:
             login(request, user)
+            if 'next' in request.POST:
+                return redirect(request.POST['next'])
             return render(request, 'accounts/signup.html', {'error': 'Login successful!'})
         else:
             return render(request, 'accounts/signup.html', {'error': 'The Username adn password didn\'t match'})
