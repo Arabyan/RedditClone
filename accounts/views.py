@@ -13,18 +13,16 @@ def signup(request):
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
                 login(request, user)
-                if request.POST["next"] is not None:
-
-                    return render(request, 'accounts/signup.html')
+                return render(request, 'accounts/signup.html')
         else:
-            return render(request, 'accounts/signup.html')
+            return render(request, 'accounts/signup.html', {'error':'Passowrds didn\'t match'})
     else:
-        return render(request, 'accounts/signup.html', {'error':'Passwords didn\'t match'})
+        return render(request, 'accounts/signup.html')
 
 
 def loginview(request):
     if request.method == 'POST':
-        user = authenticate( username=request.POST['username'], password=request.POST['username'])
+        user = authenticate( username=request.POST['username'], password=request.POST['password'])
         if user is not None:
             login(request, user)
             if 'next' in request.POST:
