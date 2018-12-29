@@ -2,10 +2,8 @@
 
 {% block content %}
 
-<h1>The Homepage of nowhere</h1>
-<a class="btn btn-primary" href="{% url 'posts:create' %}">New Post</a>
+<h1>All Posts by {{ author.username }} </h1>
 
-<br/>
 <br/>
 
 {% for post in posts.all %}
@@ -29,6 +27,7 @@
 
 <input type="hidden">
 </form>
+
 {% endfor %}
 
 {% endblock %}

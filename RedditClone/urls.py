@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^accounts/', include('accounts.urls')),
     url(r'^posts/', include('posts.urls')),
     url(r'^$', views.home, name="home"),
+
 ]
